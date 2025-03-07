@@ -1,0 +1,3 @@
+C:/Users/Yegor/File-Monitoring/Files/1file.txt
+C:/Users/Yegor/File-Monitoring/Files/2file.txt
+C:/Users/Yegor/File-Monitoring/Files/3file.txt

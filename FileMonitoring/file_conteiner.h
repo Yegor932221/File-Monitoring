@@ -10,13 +10,23 @@
 class file_conteiner
 {
 private:
-    QFile m_conteiner;
-    QVector <QFile> m_files;
-    QVector<int> m_weight;
-    QVector<QDateTime> m_date_of_modification;
+    QString m_sourceFile;
+    QVector<QString> m_files;
+    QVector<int> m_weights;
+    QVector<bool> m_existenceFlags;
+    QVector<QDateTime> m_lastModifiedDates;
 public:
-    file_conteiner();
-    file_conteiner(QString &files);
+    file_conteiner( QString& filePath);
+    ~file_conteiner();
+    void loadFiles();
+
+    const QVector<QString>& getFiles() const;
+    const QVector<int>& getWeights() const;
+    const QVector<bool>& getExistenceFlags() const;
+    const QVector<QDateTime>& getLastModifiedDates() const;
+
+
+
 };
 
 #endif // FILE_CONTEINER_H

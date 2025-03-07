@@ -1,8 +1,13 @@
 #include <QCoreApplication>
+#include <QString>
+#include "iostream"
+#include "file_conteiner.h"
+#include <QDebug>
 
-int main(int argc, char *argv[])
+int main()
 {
-    QCoreApplication a(argc, argv);
-
-    return a.exec();
+    QString file="C:/Users/Yegor/File-Monitoring/Files/origin.txt";
+    QString &files=file;
+    file_conteiner mon(files);
+    qDebug()<<mon.getFiles()[0];
 }
