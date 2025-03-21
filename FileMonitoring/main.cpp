@@ -4,19 +4,19 @@
 #include "file_conteiner.h"
 #include <QDebug>
 #include "file_watcher.h"
+#include "logger.h"
+#include <QObject>
 
 int main()
 {
     QString orig("C:/Users/Yegor/File-Monitoring/Files/origin.txt");
     QString &file =  orig;
+    file_conteiner cont(file);
     file_watcher manager(orig);
+    logger log;
+    QObject::connect(&manager,&file_watcher::existenceCheckerror,&log,&logger::existenceCheckOutput);
+    qInfo() <<"m_files:"<<manager.getCoteiner(1).getFiles().size();
 
-    if(manager.existenceCheck())
-    qDebug() <<"Exist const";
-    if(manager.weightsCheck())
-    qDebug() <<"Weights const";
-    if(manager.modifiedDatesCheck())
-    qDebug() <<"Modifi date const";
     manager.update(true);
 
 }

@@ -25,38 +25,41 @@ file_conteiner file_watcher::getCoteiner(int index)
     return m_files[index];
 }
 
-bool file_watcher::existenceCheck()
+void file_watcher::existenceCheck()
 {
     for(int i=0;i<getCoteiner(0).getExistenceFlags().size();i++)
     {
         if(getCoteiner(0).getExistenceFlags()[i]!=getCoteiner(1).getExistenceFlags()[i])
         {
-            return false;
+           emit existenceCheckerror(getCoteiner(0).getFiles()[i]);
         }
     }
-    return true;
 }
 
-bool file_watcher::weightsCheck()
+void file_watcher::weightsCheck()
 {
     for(int i=0;i<getCoteiner(0).getWeights().size();i++)
     {
         if(getCoteiner(0).getWeights()[i]!=getCoteiner(1).getWeights()[i])
         {
-            return false;
+            emit weightsCheckerror(getCoteiner(0).getFiles()[i]);
         }
     }
-    return true;
 }
 
-bool file_watcher::modifiedDatesCheck()
+void file_watcher::modifiedDatesCheck()
 {
     for(int i=0;i<getCoteiner(0).getLastModifiedDates().size();i++)
     {
         if(getCoteiner(0).getLastModifiedDates()[i]!=m_files[1].getLastModifiedDates()[i])
         {
-            return false;
+            emit modifiedDatesCheckerror(getCoteiner(0).getFiles()[i]);
         }
     }
-    return true;
+}
+
+file_watcher::~file_watcher()
+{
+    m_filePath.clear();
+    delete[] m_files;
 }

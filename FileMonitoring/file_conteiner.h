@@ -22,10 +22,10 @@ public:
     ~file_conteiner();
     file_conteiner& setFile(QString& filePath);
 
-    const QVector<QString>& getFiles() const;
-    const QVector<int>& getWeights() const;
-    const QVector<bool>& getExistenceFlags() const;
-    const QVector<QDateTime>& getLastModifiedDates() const;
+    const QVector<QString>& getFiles() ;
+    const QVector<int>& getWeights() ;
+    const QVector<bool>& getExistenceFlags() ;
+    const QVector<QDateTime>& getLastModifiedDates() ;
 
     bool operator==(file_conteiner sec);
 };

@@ -17,23 +17,25 @@ file_conteiner::file_conteiner( QString& filePath)
         return;
     }
     QString line;
-    QTextStream in(&file);
     while (!file.atEnd())
     {
         line = file.readLine().trimmed();
-        m_files.append(line);
-        QFileInfo fileInfo(line);
-        bool exists = fileInfo.exists();
-        m_existenceFlags.append(exists);
-        if(exists)
+        if(!m_files.contains(line))
         {
-            m_weights.append(fileInfo.size());
-            m_lastModifiedDates.append(fileInfo.lastModified());
-        }
-        else
-        {
-            m_weights.append(0);
+            m_files.append(line);
+            QFileInfo fileInfo(line);
+            bool exists = fileInfo.exists();
+            m_existenceFlags.append(exists);
+            if(exists)
+            {
+                m_weights.append(fileInfo.size());
+                m_lastModifiedDates.append(fileInfo.lastModified());
+            }
+            else
+            {
+                m_weights.append(0);
             m_lastModifiedDates.append(QDateTime());
+            }
         }
     }
     file.close();
@@ -46,22 +48,22 @@ file_conteiner::file_conteiner( )
 
 }
 
-const QVector<QString>& file_conteiner::getFiles() const {
+const QVector<QString>& file_conteiner::getFiles()  {
         return m_files;
 }
 
 
-const QVector<int>& file_conteiner::getWeights() const {
+const QVector<int>& file_conteiner::getWeights()  {
         return m_weights;
 }
 
 
-const QVector<bool>& file_conteiner::getExistenceFlags() const {
+const QVector<bool>& file_conteiner::getExistenceFlags()  {
         return m_existenceFlags;
 }
 
 
-const QVector<QDateTime>& file_conteiner::getLastModifiedDates() const {
+const QVector<QDateTime>& file_conteiner::getLastModifiedDates()  {
         return m_lastModifiedDates;
 }
 
@@ -100,6 +102,7 @@ bool file_conteiner::operator ==(file_conteiner sec)
         if(m_lastModifiedDates[i]!= sec.m_lastModifiedDates[i])
             return false;
     }
+    return true;
 }
 
 file_conteiner& file_conteiner::setFile(QString& filePath)
@@ -120,19 +123,22 @@ file_conteiner& file_conteiner::setFile(QString& filePath)
     while (!file.atEnd())
     {
         line = file.readLine().trimmed();
-        m_files.append(line);
-        QFileInfo fileInfo(line);
-        bool exists = fileInfo.exists();
-        m_existenceFlags.append(exists);
-        if(exists)
+        if(!m_files.contains(line))
         {
-            m_weights.append(fileInfo.size());
-            m_lastModifiedDates.append(fileInfo.lastModified());
-        }
-        else
-        {
-            m_weights.append(0);
-            m_lastModifiedDates.append(QDateTime());
+            m_files.append(line);
+            QFileInfo fileInfo(line);
+            bool exists = fileInfo.exists();
+            m_existenceFlags.append(exists);
+            if(exists)
+            {
+                m_weights.append(fileInfo.size());
+                m_lastModifiedDates.append(fileInfo.lastModified());
+            }
+            else
+            {
+                m_weights.append(0);
+                m_lastModifiedDates.append(QDateTime());
+            }
         }
     }
     file.close();

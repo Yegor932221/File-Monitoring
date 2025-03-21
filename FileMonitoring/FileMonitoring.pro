@@ -9,6 +9,7 @@ CONFIG += console
 SOURCES += \
         file_conteiner.cpp \
         file_watcher.cpp \
+        logger.cpp \
         main.cpp
 
 # Default rules for deployment.
@@ -18,4 +19,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     file_conteiner.h \
-    file_watcher.h
+    file_watcher.h \
+    logger.h
