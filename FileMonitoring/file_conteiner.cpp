@@ -144,3 +144,4 @@ file_conteiner& file_conteiner::setFile(QString& filePath)
     file.close();
     return *this;
 }
+

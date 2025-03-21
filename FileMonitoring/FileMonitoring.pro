@@ -7,9 +7,9 @@ CONFIG += console
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+        consoleLog.cpp \
         file_conteiner.cpp \
         file_watcher.cpp \
-        logger.cpp \
         main.cpp
 
 # Default rules for deployment.
@@ -18,6 +18,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
+    consoleLog.h \
     file_conteiner.h \
-    file_watcher.h \
-    logger.h
+    file_watcher.h

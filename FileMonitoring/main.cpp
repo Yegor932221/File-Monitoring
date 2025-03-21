@@ -4,7 +4,7 @@
 #include "file_conteiner.h"
 #include <QDebug>
 #include "file_watcher.h"
-#include "logger.h"
+#include "consoleLog.h"
 #include <QObject>
 
 int main()
@@ -13,8 +13,8 @@ int main()
     QString &file =  orig;
     file_conteiner cont(file);
     file_watcher manager(orig);
-    logger log;
-    QObject::connect(&manager,&file_watcher::existenceCheckerror,&log,&logger::existenceCheckOutput);
+    consoleLog log;
+
     qInfo() <<"m_files:"<<manager.getCoteiner(1).getFiles().size();
 
     manager.update(true);
