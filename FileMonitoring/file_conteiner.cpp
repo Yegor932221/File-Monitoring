@@ -80,35 +80,6 @@ file_conteiner::~file_conteiner() {
     m_lastModifiedDates.clear();
 }
 
-bool file_conteiner::operator ==(file_conteiner sec)
-{
-    if(m_sourceFile!= sec.m_sourceFile)
-        return false;
-    if(m_files.size()!= sec.m_files.size())
-        return false;
-    for(int i=0;i<m_files.size();i++)
-    {
-        if(m_files[i]!= sec.m_files[i])
-            return false;
-    }
-    for(int i=0;i<m_existenceFlags.size();i++)
-    {
-        if(m_existenceFlags[i]!= sec.m_existenceFlags[i])
-            return false;
-    }
-    for(int i=0;i<m_weights.size();i++)
-    {
-        if(m_weights[i]!= sec.m_weights[i])
-            return false;
-    }
-    for(int i=0;i<m_lastModifiedDates.size();i++)
-    {
-        if(m_lastModifiedDates[i]!= sec.m_lastModifiedDates[i])
-            return false;
-    }
-    return true;
-}
-
 file_conteiner& file_conteiner::setFile(QString& filePath)
 {
     m_sourceFile.clear();

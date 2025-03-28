@@ -27,8 +27,6 @@ public:
     const QVector<int>& getWeights() ;
     const QVector<bool>& getExistenceFlags() ;
     const QVector<QDateTime>& getLastModifiedDates() ;
-
-    bool operator==(file_conteiner sec);
 };
 
 #endif // FILE_CONTEINER_H
