@@ -9,9 +9,14 @@ file_watcher::file_watcher(QString& filePath)
     m_filePath=filePath;
     m_files[0].setFile(m_filePath);
     m_files[1].setFile(m_filePath);
-    QObject::connect(this,&file_watcher::existenceCheckerror,&m_log,&consoleLog::existenceCheckOutput);
-    QObject::connect(this,&file_watcher::weightsCheckerror,&m_log,&consoleLog::weightsCheckOutput);
-    QObject::connect(this,&file_watcher::modifiedDatesCheckerror,&m_log,&consoleLog::modifiedDatesCheckOutput);
+
+    QObject::connect(this,&file_watcher::allFind,&m_log,&consoleLog::findOutput);
+    QObject::connect(this,&file_watcher::existenceCheckError,&m_log,&consoleLog::existenceCheckErrorOutput);
+    QObject::connect(this,&file_watcher::existenceCheckAppeard,&m_log,&consoleLog::existenceCheckOutput);
+    QObject::connect(this,&file_watcher::weightsCheckError,&m_log,&consoleLog::weightsCheckOutput);
+    QObject::connect(this,&file_watcher::modifiedDatesCheckError,&m_log,&consoleLog::modifiedDatesCheckOutput);
+   QObject::connect(this,&file_watcher::iteretion,&m_log,&consoleLog::iteretionOutput);
+
 }
 
 void file_watcher::update(bool number)
@@ -30,22 +35,42 @@ file_conteiner file_watcher::getCoteiner(int index)
     return m_files[index];
 }
 
-void file_watcher::filesCheck()
+QString file_watcher::getFilePath()
 {
+    return m_filePath;
+}
+
+void file_watcher::filesCheck(bool integer)
+{
+    emit iteretion(getFilePath());
+    int j=0;
+    if (integer) j++;
     for(int i=0;i<getCoteiner(0).getExistenceFlags().size();i++)
     {
         if(getCoteiner(0).getExistenceFlags()[i]!=getCoteiner(1).getExistenceFlags()[i])
         {
-            emit existenceCheckerror(getCoteiner(0).getFiles()[i]);
+            if(getCoteiner(j).getExistenceFlags()[i])
+            {
+                emit existenceCheckAppeard(getCoteiner(0).getFiles()[i]);
+                continue;
+            }
+            else
+            {
+                emit existenceCheckError(getCoteiner(0).getFiles()[i]);
+                continue;
+            }
         }
         if(getCoteiner(0).getWeights()[i]!=getCoteiner(1).getWeights()[i])
         {
-            emit weightsCheckerror(getCoteiner(0).getFiles()[i]);
+            emit weightsCheckError(getCoteiner(0).getFiles()[i]);
+            continue;
         }
         if(getCoteiner(0).getLastModifiedDates()[i]!=m_files[1].getLastModifiedDates()[i])
         {
-            emit modifiedDatesCheckerror(getCoteiner(0).getFiles()[i]);
+            emit modifiedDatesCheckError(getCoteiner(0).getFiles()[i]);
+            continue;
         }
+        emit allFind(getCoteiner(0).getFiles()[i]);
     }
 }
 

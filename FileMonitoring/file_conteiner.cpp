@@ -53,6 +53,10 @@ const QVector<QString>& file_conteiner::getFiles()  {
 }
 
 
+const QString file_conteiner::getSourceFile()  {
+        return m_sourceFile;
+}
+
 const QVector<int>& file_conteiner::getWeights()  {
         return m_weights;
 }

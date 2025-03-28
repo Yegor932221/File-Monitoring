@@ -22,6 +22,7 @@ public:
     ~file_conteiner();
     file_conteiner& setFile(QString& filePath);
 
+    const QString getSourceFile();
     const QVector<QString>& getFiles() ;
     const QVector<int>& getWeights() ;
     const QVector<bool>& getExistenceFlags() ;
