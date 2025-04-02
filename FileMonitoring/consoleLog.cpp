@@ -6,10 +6,6 @@
 #include "file_watcher.h"
 #include <cstdlib>
 #include<QTime>
-consoleLog::consoleLog()
-{
-
-}
 
 void consoleLog::existenceCheckErrorOutput(QString filePath)
 {

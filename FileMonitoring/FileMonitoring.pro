@@ -20,4 +20,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 HEADERS += \
     consoleLog.h \
     file_conteiner.h \
-    file_watcher.h
+    file_watcher.h \
+    parentLogger.h

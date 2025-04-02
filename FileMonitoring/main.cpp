@@ -11,7 +11,8 @@
 int main()
 {
     QString orig("C:/Users/Yegor/File-Monitoring/Files/origin.txt");
-    file_watcher manager(orig);
+    consoleLog logger;
+    file_watcher manager(orig,&logger);
     bool flag=false;
     int i=0;
     while(true)
@@ -22,7 +23,7 @@ int main()
         i++;
         if(i>10)
         {
-            manager.m_log.clear();
+            (manager.getLogger())->clear();
             i=0;
             std::this_thread::sleep_for( std::chrono::milliseconds( 3000) );
         }

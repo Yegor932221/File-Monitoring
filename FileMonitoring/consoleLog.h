@@ -2,12 +2,14 @@
 #define CONSOLELOG_H
 #include <QString>
 #include <QObject>
-class consoleLog: public QObject
+#include "parentLogger.h"
+class consoleLog: public parentLogger
 {
-    Q_OBJECT
+Q_OBJECT
 public:
-    consoleLog();
-    public slots:
+    explicit consoleLog(QObject *parent = nullptr) : parentLogger(parent) {}
+    ~consoleLog()=default;
+public slots:
     void iteretionOutput(QString filePath);
     void findOutput(QString filePath);
     void existenceCheckOutput(QString filePath);

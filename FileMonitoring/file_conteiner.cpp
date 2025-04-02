@@ -100,6 +100,7 @@ file_conteiner& file_conteiner::setFile(QString& filePath)
         line = file.readLine().trimmed();
         if(!m_files.contains(line))
         {
+            if(line.length()==0) continue;
             m_files.append(line);
             QFileInfo fileInfo(line);
             bool exists = fileInfo.exists();
