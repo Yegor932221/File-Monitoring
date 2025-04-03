@@ -16,6 +16,7 @@ file_watcher::file_watcher(QString& filePath,parentLogger* logger)
     QObject::connect(this,&file_watcher::weightsCheckError,m_log,&parentLogger::weightsCheckOutput);
     QObject::connect(this,&file_watcher::modifiedDatesCheckError,m_log,&parentLogger::modifiedDatesCheckOutput);
     QObject::connect(this,&file_watcher::iteretion,m_log,&parentLogger::iteretionOutput);
+    QObject::connect(this,&file_watcher::changeInFileList,m_log,&parentLogger::changeInFileListOutput);
 }
 
 void file_watcher::update(bool number)
@@ -53,9 +54,18 @@ void file_watcher::filesCheck(bool integer)
         emit existenceCheckError(getFilePath());
         return;
     }
+    int h=0;
     int j=0;
     if (integer) j++;
-    for(int i=0;i<getCoteiner(0).getExistenceFlags().size();i++)
+    if(getCoteiner(0).getExistenceFlags().size()!=getCoteiner(1).getExistenceFlags().size())
+    {
+        if(getCoteiner(0).getExistenceFlags().size()>getCoteiner(1).getExistenceFlags().size())
+        {
+            h+=1;
+            emit changeInFileList(getFilePath());
+        }
+    }
+    for(int i=0;i<getCoteiner(h).getExistenceFlags().size();i++)
     {
         if(!(getCoteiner(0).getExistenceFlags()[i] && getCoteiner(1).getExistenceFlags()[i]))
         {

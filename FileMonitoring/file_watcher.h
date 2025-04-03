@@ -31,6 +31,7 @@ signals:
     void existenceCheckAppeard(QString filePath);
     void weightsCheckError(QString filePath);
     void modifiedDatesCheckError(QString filePath);
+    void changeInFileList(QString filePath);
 };
 
 #endif // FILE_WATCHER_H
