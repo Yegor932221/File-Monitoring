@@ -22,8 +22,8 @@ file_conteiner::file_conteiner( QString& filePath)
         line = file.readLine().trimmed();
         if(!m_files.contains(line))
         {
-            m_files.append(line);
             QFileInfo fileInfo(line);
+            m_files.append(fileInfo.absoluteFilePath());
             bool exists = fileInfo.exists();
             m_existenceFlags.append(exists);
             if(exists)
@@ -101,8 +101,8 @@ file_conteiner& file_conteiner::setFile(QString& filePath)
         if(!m_files.contains(line))
         {
             if(line.length()==0) continue;
-            m_files.append(line);
             QFileInfo fileInfo(line);
+            m_files.append(fileInfo.absoluteFilePath());
             bool exists = fileInfo.exists();
             m_existenceFlags.append(exists);
             if(exists)

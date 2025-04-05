@@ -7,10 +7,13 @@
 #include "consoleLog.h"
 #include <QObject>
 #include <thread>
+#include <QDir>
 
-int main()
+
+int main(int argc, char *argv[])
 {
-    QString orig("C:/Users/Yegor/File-Monitoring/Files/origin.txt");
+    QCoreApplication app(argc, argv);
+    QString orig = app.applicationDirPath()+"/origin.txt";
     consoleLog logger;
     file_watcher manager(orig,&logger);
     bool flag=false;
