@@ -11,7 +11,6 @@ public:
     ~consoleLog()=default;
 public slots:
     void iteretionOutput(QString filePath);
-    void findOutput(QString filePath);
     void existenceCheckOutput(QString filePath);
     void existenceCheckErrorOutput(QString filePath);
     void weightsCheckOutput(QString filePath);

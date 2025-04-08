@@ -10,7 +10,6 @@ file_watcher::file_watcher(QString& filePath,parentLogger* logger)
     m_files[0].setFile(m_filePath);
     m_files[1].setFile(m_filePath);
     m_log = logger;
-    QObject::connect(this,&file_watcher::allFind,m_log,&parentLogger::findOutput);
     QObject::connect(this,&file_watcher::existenceCheckError, m_log,&parentLogger::existenceCheckErrorOutput);
     QObject::connect(this,&file_watcher::existenceCheckAppeard,m_log,&parentLogger::existenceCheckOutput);
     QObject::connect(this,&file_watcher::weightsCheckError,m_log,&parentLogger::weightsCheckOutput);
@@ -90,7 +89,6 @@ void file_watcher::filesCheck(bool integer)
             emit modifiedDatesCheckError(getCoteiner(0).getFiles()[i]);
             continue;
         }
-        emit allFind(getCoteiner(0).getFiles()[i]);
     }
 }
 
