@@ -10,7 +10,6 @@ public:
     ~parentLogger()=default;
     public slots:
     virtual void iteretionOutput(QString filePath)=0;
-    virtual void findOutput(QString filePath)=0;
     virtual void existenceCheckOutput(QString filePath)=0;
     virtual void existenceCheckErrorOutput(QString filePath)=0;
     virtual void weightsCheckOutput(QString filePath)=0;

@@ -17,11 +17,6 @@ void consoleLog::existenceCheckErrorOutput(QString filePath)
     qInfo() <<" Results of observation: "<<filePath<<" in "<<QTime::currentTime()<<"\n";
 }
 
-void consoleLog::findOutput(QString filePath)
-{
-    qInfo() <<filePath<<" don't changed\n";
-}
-
 void consoleLog::existenceCheckOutput(QString filePath)
 {
     qInfo() <<filePath<<" appeared\n";
