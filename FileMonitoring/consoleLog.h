@@ -10,7 +10,6 @@ public:
     explicit consoleLog(QObject *parent = nullptr) : parentLogger(parent) {}
     ~consoleLog()=default;
 public slots:
-    void iteretionOutput(QString filePath);
     void existenceCheckOutput(QString filePath);
     void existenceCheckErrorOutput(QString filePath);
     void weightsCheckOutput(QString filePath);

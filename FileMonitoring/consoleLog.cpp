@@ -12,11 +12,6 @@ void consoleLog::existenceCheckErrorOutput(QString filePath)
     qInfo() <<filePath<<" existance error\n";
 }
 
- void consoleLog::iteretionOutput(QString filePath)
-{
-    qInfo() <<" Results of observation: "<<filePath<<" in "<<QTime::currentTime()<<"\n";
-}
-
 void consoleLog::existenceCheckOutput(QString filePath)
 {
     qInfo() <<filePath<<" appeared\n";

@@ -14,7 +14,6 @@ file_watcher::file_watcher(QString& filePath,parentLogger* logger)
     QObject::connect(this,&file_watcher::existenceCheckAppeard,m_log,&parentLogger::existenceCheckOutput);
     QObject::connect(this,&file_watcher::weightsCheckError,m_log,&parentLogger::weightsCheckOutput);
     QObject::connect(this,&file_watcher::modifiedDatesCheckError,m_log,&parentLogger::modifiedDatesCheckOutput);
-    QObject::connect(this,&file_watcher::iteretion,m_log,&parentLogger::iteretionOutput);
     QObject::connect(this,&file_watcher::changeInFileList,m_log,&parentLogger::changeInFileListOutput);
 }
 
@@ -46,7 +45,6 @@ parentLogger* file_watcher::getLogger()
 
 void file_watcher::filesCheck(bool integer)
 {
-    emit iteretion(getFilePath());
     QFile file(getFilePath());
     if (!file.open(QIODevice::ReadOnly| QIODevice::Text))
     {

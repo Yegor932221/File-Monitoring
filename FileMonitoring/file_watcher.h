@@ -25,8 +25,6 @@ public:
     parentLogger* getLogger();
     void setLogger(parentLogger* logger);
 signals:
-    void iteretion(QString filePath);
-    void allFind(QString filePath);
     void existenceCheckError(QString filePath);
     void existenceCheckAppeard(QString filePath);
     void weightsCheckError(QString filePath);
