@@ -53,6 +53,7 @@ void file_watcher::filesCheck(bool integer)
         emit existenceCheckError(getFilePath());
         return;
     }
+    static bool first=true;
     int h=0;
     int j=0;
     if (integer) j++;
@@ -66,7 +67,13 @@ void file_watcher::filesCheck(bool integer)
     }
     for(int i=0;i<getCoteiner(h).getExistenceFlags().size();i++)
     {
-        if(!(getCoteiner(0).getExistenceFlags()[i] && getCoteiner(1).getExistenceFlags()[i]))
+        if(first)
+            {
+            if(!getCoteiner(0).getExistenceFlags()[i])
+                emit existenceCheckError(getCoteiner(0).getFiles()[i]);
+            continue;
+        }
+        if(getCoteiner(0).getExistenceFlags()[i] != getCoteiner(1).getExistenceFlags()[i])
         {
             if(getCoteiner(j).getExistenceFlags()[i])
             {
@@ -90,6 +97,7 @@ void file_watcher::filesCheck(bool integer)
             continue;
         }
     }
+    first=false;
 }
 
 void file_watcher::setLogger(parentLogger* logger)
