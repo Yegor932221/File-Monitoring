@@ -6,27 +6,23 @@
 #include <QVector>
 #include <QString>
 #include <QTextStream>
+#include <QFileInfo>
 
 class file_conteiner
 {
 private:
     QString m_sourceFile;
-    QVector<QString> m_files;
-    QVector<int> m_weights;
-    QVector<bool> m_existenceFlags;
-    QVector<QDateTime> m_lastModifiedDates;
-
+    QVector<QFileInfo> m_files;
 public:
     file_conteiner( );
     file_conteiner( QString& filePath);
     ~file_conteiner();
-    file_conteiner& setFile(QString& filePath);
-
-    const QString getSourceFile();
-    const QVector<QString>& getFiles() ;
-    const QVector<int>& getWeights() ;
-    const QVector<bool>& getExistenceFlags() ;
-    const QVector<QDateTime>& getLastModifiedDates() ;
+    void update();
+    void setSourceFile(QString& filePath);
+    QString getSourceFile();
+    QVector<QFileInfo>& getFiles();
+    void addFile(QString& filePath);
+    bool removeFile(QString& filePath);
 };
 
 #endif // FILE_CONTEINER_H

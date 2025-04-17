@@ -7,8 +7,8 @@
 file_watcher::file_watcher(QString& filePath,parentLogger* logger)
 {
     m_filePath=filePath;
-    m_files[0].setFile(m_filePath);
-    m_files[1].setFile(m_filePath);
+    m_files[0].setSourceFile(m_filePath);
+    m_files[1].setSourceFile(m_filePath);
     m_log = logger;
     QObject::connect(this,&file_watcher::existenceCheckError, m_log,&parentLogger::existenceCheckErrorOutput);
     QObject::connect(this,&file_watcher::existenceCheckAppeard,m_log,&parentLogger::existenceCheckOutput);
@@ -21,7 +21,7 @@ void file_watcher::update(bool number)
 {
     int i=0;
     if(number) i++;
-    m_files[i].setFile(m_filePath);
+    m_files[i].update();
 }
 
 file_conteiner file_watcher::getCoteiner(int index)
@@ -55,43 +55,43 @@ void file_watcher::filesCheck(bool integer)
     int h=0;
     int j=0;
     if (integer) j++;
-    if(getCoteiner(0).getExistenceFlags().size()!=getCoteiner(1).getExistenceFlags().size())
+    if(getCoteiner(0).getFiles().size()!=getCoteiner(1).getFiles().size())
     {
-        if(getCoteiner(0).getExistenceFlags().size()>getCoteiner(1).getExistenceFlags().size())
+        if(getCoteiner(0).getFiles().size()>getCoteiner(1).getFiles().size())
         {
             h+=1;
             emit changeInFileList(getFilePath());
         }
     }
-    for(int i=0;i<getCoteiner(h).getExistenceFlags().size();i++)
+    for(int i=0;i<getCoteiner(h).getFiles().size();i++)
     {
         if(first)
             {
-            if(!getCoteiner(0).getExistenceFlags()[i])
-                emit existenceCheckError(getCoteiner(0).getFiles()[i]);
+            if(!getCoteiner(0).getFiles()[i].exists())
+                emit existenceCheckError(getCoteiner(0).getFiles()[i].absoluteFilePath());
             continue;
         }
-        if(getCoteiner(0).getExistenceFlags()[i] != getCoteiner(1).getExistenceFlags()[i])
+        if(getCoteiner(0).getFiles()[i].exists() != getCoteiner(1).getFiles()[i].exists())
         {
-            if(getCoteiner(j).getExistenceFlags()[i])
+            if(getCoteiner(j).getFiles()[i].exists())
             {
-                emit existenceCheckAppeard(getCoteiner(0).getFiles()[i]);
+                emit existenceCheckAppeard(getCoteiner(j).getFiles()[i].absoluteFilePath());
                 continue;
             }
             else
             {
-                emit existenceCheckError(getCoteiner(0).getFiles()[i]);
+                emit existenceCheckError(getCoteiner(j).getFiles()[i].absoluteFilePath());
                 continue;
             }
         }
-        if(getCoteiner(0).getWeights()[i]!=getCoteiner(1).getWeights()[i])
+        if(getCoteiner(0).getFiles()[i].size()!=getCoteiner(1).getFiles()[i].size())
         {
-            emit weightsCheckError(getCoteiner(0).getFiles()[i]);
+            emit weightsCheckError(getCoteiner(0).getFiles()[i].absoluteFilePath());
             continue;
         }
-        if(getCoteiner(0).getLastModifiedDates()[i]!=m_files[1].getLastModifiedDates()[i])
+        if(getCoteiner(0).getFiles()[i].lastModified()!=getCoteiner(1).getFiles()[i].lastModified())
         {
-            emit modifiedDatesCheckError(getCoteiner(0).getFiles()[i]);
+            emit modifiedDatesCheckError(getCoteiner(0).getFiles()[i].absoluteFilePath());
             continue;
         }
     }

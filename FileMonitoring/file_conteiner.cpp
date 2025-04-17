@@ -16,26 +16,13 @@ file_conteiner::file_conteiner( QString& filePath)
     {
         return;
     }
-    QString line;
+    QFileInfo infofile;
     while (!file.atEnd())
     {
-        line = file.readLine().trimmed();
-        if(!m_files.contains(line))
+        infofile.setFile(file.readLine().trimmed());
+        if(!m_files.contains(infofile))
         {
-            QFileInfo fileInfo(line);
-            m_files.append(fileInfo.absoluteFilePath());
-            bool exists = fileInfo.exists();
-            m_existenceFlags.append(exists);
-            if(exists)
-            {
-                m_weights.append(fileInfo.size());
-                m_lastModifiedDates.append(fileInfo.lastModified());
-            }
-            else
-            {
-                m_weights.append(0);
-            m_lastModifiedDates.append(QDateTime());
-            }
+            m_files.append(infofile);
         }
     }
     file.close();
@@ -45,79 +32,57 @@ file_conteiner::file_conteiner( QString& filePath)
 file_conteiner::file_conteiner( )
 {
     m_sourceFile.append(NULL);
-
 }
 
-const QVector<QString>& file_conteiner::getFiles()  {
+ QVector<QFileInfo>& file_conteiner::getFiles()  {
         return m_files;
-}
-
-
-const QString file_conteiner::getSourceFile()  {
-        return m_sourceFile;
-}
-
-const QVector<int>& file_conteiner::getWeights()  {
-        return m_weights;
-}
-
-
-const QVector<bool>& file_conteiner::getExistenceFlags()  {
-        return m_existenceFlags;
-}
-
-
-const QVector<QDateTime>& file_conteiner::getLastModifiedDates()  {
-        return m_lastModifiedDates;
 }
 
 
 file_conteiner::~file_conteiner() {
     m_sourceFile.clear();
     m_files.clear();
-    m_weights.clear();
-    m_existenceFlags.clear();
-    m_lastModifiedDates.clear();
 }
 
-file_conteiner& file_conteiner::setFile(QString& filePath)
+void file_conteiner::setSourceFile(QString& filePath)
 {
-    m_sourceFile.clear();
+    m_sourceFile=filePath;
     m_files.clear();
-    m_weights.clear();
-    m_existenceFlags.clear();
-    m_lastModifiedDates.clear();
-    m_sourceFile.append(filePath);
     QFile file(m_sourceFile);
     if (!file.open(QIODevice::ReadOnly| QIODevice::Text))
     {
-        return *this;
+        return;
     }
-    QString line;
-    QTextStream in(&file);
+    QFileInfo infofile;
     while (!file.atEnd())
     {
-        line = file.readLine().trimmed();
-        if(!m_files.contains(line))
+        infofile.setFile(file.readLine().trimmed());
+        if(!m_files.contains(infofile))
         {
-            if(line.length()==0) continue;
-            QFileInfo fileInfo(line);
-            m_files.append(fileInfo.absoluteFilePath());
-            bool exists = fileInfo.exists();
-            m_existenceFlags.append(exists);
-            if(exists)
-            {
-                m_weights.append(fileInfo.size());
-                m_lastModifiedDates.append(fileInfo.lastModified());
-            }
-            else
-            {
-                m_weights.append(0);
-                m_lastModifiedDates.append(QDateTime());
-            }
+            m_files.append(infofile);
         }
     }
     file.close();
-    return *this;
 }
 
+void file_conteiner::update()
+{
+    for(int i=0;i<getFiles().size();i++)
+    {
+        getFiles()[i].refresh();
+    }
+}
+
+void file_conteiner::addFile(QString& filePath)
+{
+    QFileInfo file;
+    file.setFile(filePath);
+    m_files.push_back(file);
+}
+
+bool file_conteiner::removeFile(QString& filePath)
+{
+    QFileInfo file;
+    file.setFile(filePath);
+    return m_files.removeAll(file);
+}
