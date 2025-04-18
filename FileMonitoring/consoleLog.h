@@ -14,7 +14,6 @@ public slots:
     void existenceCheckErrorOutput(QString filePath);
     void weightsCheckOutput(QString filePath);
     void modifiedDatesCheckOutput(QString filePath);
-    void changeInFileListOutput(QString filePath);
     void clear();
 };
 

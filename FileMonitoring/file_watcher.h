@@ -24,12 +24,13 @@ public:
     QString getFilePath();
     parentLogger* getLogger();
     void setLogger(parentLogger* logger);
+    bool removeFile(QString& filePath);
+    void addFile(QString& filePath);
 signals:
     void existenceCheckError(QString filePath);
     void existenceCheckAppeard(QString filePath);
     void weightsCheckError(QString filePath);
     void modifiedDatesCheckError(QString filePath);
-    void changeInFileList(QString filePath);
 };
 
 #endif // FILE_WATCHER_H

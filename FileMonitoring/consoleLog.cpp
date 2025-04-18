@@ -27,10 +27,6 @@ void consoleLog::modifiedDatesCheckOutput(QString filePath)
     qInfo() <<filePath<<" was modified without weights chages\n";
 }
 
-void consoleLog::changeInFileListOutput(QString filePath)
-{
-    qInfo() <<filePath<<" was modified\n";
-}
 
 void consoleLog::clear()
 {
