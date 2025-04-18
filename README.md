@@ -20,5 +20,5 @@
 
 4.сигнал при изменении файла но без изменения веса
 
-![трпо](https://github.com/user-attachments/assets/2097e646-29df-4b80-9612-4fa757db8d34)
+![трпо](https://github.com/user-attachments/assets/0224ead0-7516-47be-b61f-d83c53d98528)
 
