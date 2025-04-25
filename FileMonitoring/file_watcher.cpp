@@ -33,11 +33,6 @@ file_conteiner file_watcher::getCoteiner(int index)
     return m_files[index];
 }
 
-QString file_watcher::getFilePath()
-{
-    return m_filePath;
-}
-
 parentLogger* file_watcher::getLogger()
 {
     return m_log;

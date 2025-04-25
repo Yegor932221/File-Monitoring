@@ -40,7 +40,6 @@ public:
     file_conteiner( QString& filePath);
     ~file_conteiner();
     void update();
-    QString getSourceFile();
     fileInfo& getFile(int i);
     void addFile(QString& filePath);
     bool removeFile(QString& filePath);

@@ -21,7 +21,6 @@ public:
     file_conteiner getCoteiner(int index);
     void update();
     void filesCheck();
-    QString getFilePath();
     parentLogger* getLogger();
     void setLogger(parentLogger* logger);
     bool removeFile(QString& filePath);
