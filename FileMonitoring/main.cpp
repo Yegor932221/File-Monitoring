@@ -16,20 +16,17 @@ int main(int argc, char *argv[])
     QString orig = app.applicationDirPath()+"/origin.txt";
     consoleLog logger;
     file_watcher manager(orig,&logger);
-    bool flag=false;
     int i=0;
     while(true)
     {
-        manager.filesCheck(flag);
-        std::this_thread::sleep_for( std::chrono::milliseconds( 3000 ) );
-        flag=!flag;
+        manager.filesCheck();
+        std::this_thread::sleep_for( std::chrono::milliseconds( 300 ) );
         i++;
-        if(i>10)
+        if(i>100)
         {
             (manager.getLogger())->clear();
             i=0;
             std::this_thread::sleep_for( std::chrono::milliseconds( 3000) );
         }
-        manager.update(flag);
     }
 }

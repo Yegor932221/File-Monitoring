@@ -19,8 +19,8 @@ public:
     file_watcher(QString& filePath,parentLogger* logger);
     ~file_watcher();
     file_conteiner getCoteiner(int index);
-    void update(bool number);
-    void filesCheck(bool integer);
+    void update();
+    void filesCheck();
     QString getFilePath();
     parentLogger* getLogger();
     void setLogger(parentLogger* logger);

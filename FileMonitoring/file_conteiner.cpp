@@ -10,20 +10,22 @@
 
 file_conteiner::file_conteiner( QString& filePath)
 {
-    m_sourceFile.append(filePath);
+    m_sourceFile=filePath;
     QFile file(m_sourceFile);
     if (!file.open(QIODevice::ReadOnly| QIODevice::Text))
     {
         return;
     }
-    QFileInfo infofile;
+
     while (!file.atEnd())
     {
-        infofile.setFile(file.readLine().trimmed());
-        if(!m_files.contains(infofile))
+        QFileInfo infofile(file.readLine().trimmed());
+        fileInfo entry(infofile, infofile.exists(), infofile.baseName());
+        if(m_files.contains(entry))
         {
-            m_files.append(infofile);
+            continue;
         }
+        m_files.append(entry);
     }
     file.close();
 }
@@ -34,8 +36,8 @@ file_conteiner::file_conteiner( )
     m_sourceFile.append(NULL);
 }
 
- QVector<QFileInfo>& file_conteiner::getFiles()  {
-        return m_files;
+fileInfo& file_conteiner::getFile(int i)  {
+        return m_files[i];
 }
 
 
@@ -44,45 +46,52 @@ file_conteiner::~file_conteiner() {
     m_files.clear();
 }
 
-void file_conteiner::setSourceFile(QString& filePath)
-{
-    m_sourceFile=filePath;
-    m_files.clear();
-    QFile file(m_sourceFile);
-    if (!file.open(QIODevice::ReadOnly| QIODevice::Text))
-    {
-        return;
-    }
-    QFileInfo infofile;
-    while (!file.atEnd())
-    {
-        infofile.setFile(file.readLine().trimmed());
-        if(!m_files.contains(infofile))
-        {
-            m_files.append(infofile);
-        }
-    }
-    file.close();
-}
-
 void file_conteiner::update()
 {
-    for(int i=0;i<getFiles().size();i++)
+    for(auto& entry : m_files)
     {
-        getFiles()[i].refresh();
+        entry.m_info.refresh();
+        entry.m_flag = entry.m_info.exists();
     }
 }
 
 void file_conteiner::addFile(QString& filePath)
 {
-    QFileInfo file;
-    file.setFile(filePath);
-    m_files.push_back(file);
+    QFileInfo file(filePath);
+    bool exist=file.exists();
+    fileInfo fileinfo(file, exist, filePath);
+    m_files.push_back(fileinfo);
 }
 
 bool file_conteiner::removeFile(QString& filePath)
 {
-    QFileInfo file;
-    file.setFile(filePath);
-    return m_files.removeAll(file);
+    QFileInfo file(filePath);
+    bool exist=file.exists();
+    fileInfo fileinfo(file, exist, filePath);
+    return m_files.removeAll(fileinfo);
+}
+
+QVector<fileInfo>& file_conteiner::getFiles()  {
+    return m_files;
+}
+
+file_conteiner& file_conteiner::operator=(const file_conteiner& other)
+{
+    if (this != &other)
+    {
+        m_sourceFile = other.m_sourceFile;
+        m_files = other.m_files;
+    }
+    return *this;
+}
+
+bool file_conteiner::operator==(const file_conteiner& other)
+{
+    return (m_sourceFile == other.m_sourceFile) &&
+           (m_files == other.m_files);
+}
+
+bool file_conteiner::operator!=(const file_conteiner& other)
+{
+    return !(*this == other);
 }
