@@ -90,4 +90,14 @@ file_watcher::~file_watcher()
     delete[] m_files;
 }
 
+bool file_watcher::removeFile(QString& filePath)
+{
+    return(m_files[0].removeFile(filePath)&& m_files[1].removeFile(filePath));
+}
+
+void file_watcher::addFile(QString& filePath)
+{
+    m_files[0].addFile(filePath);
+    m_files[1].addFile(filePath);
+}
 
