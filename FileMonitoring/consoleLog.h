@@ -10,10 +10,10 @@ public:
     explicit consoleLog(QObject *parent = nullptr) : parentLogger(parent) {}
     ~consoleLog()=default;
 public slots:
-    void existenceCheckOutput(QString filePath);
-    void existenceCheckErrorOutput(QString filePath);
-    void weightsCheckOutput(QString filePath);
-    void modifiedDatesCheckOutput(QString filePath);
+    void existenceCheckOutput(QString filePath) override ;
+    void existenceCheckErrorOutput(QString filePath) override ;
+    void weightsCheckOutput(QString filePath) override ;
+    void modifiedDatesCheckOutput(QString filePath) override ;
     void clear();
 };
 
