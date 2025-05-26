@@ -20,4 +20,5 @@
 
 4.сигнал при изменении файла но без изменения веса
 
-![Диаграмма file manager drawio](https://github.com/user-attachments/assets/d5fdb4f3-4734-465a-9956-f9bb98724bdd)
+![Диаграмма file manager](https://github.com/user-attachments/assets/fe9caa78-3b29-4347-a7de-75138aa5d971)
+
